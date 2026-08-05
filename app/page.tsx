@@ -1,7 +1,7 @@
-export default function Home() {
-  return (
-    <>
-      <h1>Welcome to the Internal Portal</h1>
-    </>
-  );
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
+
+export default async function Home() {
+  const session = await auth();
+  redirect(session?.user ? "/dashboard" : "/auth/login");
 }
