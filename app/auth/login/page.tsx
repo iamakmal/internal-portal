@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -34,16 +35,26 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex flex-1 items-center justify-center px-4">
-      <div className="w-full max-w-sm">
-        <h1 className="text-2xl font-semibold text-center mb-1">Team Portal</h1>
-        <p className="text-sm text-gray-500 text-center mb-8">
-          Sign in to continue
-        </p>
+    <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-10">
+      <div className="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+        <div className="mb-8 text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
+            Welcome back
+          </p>
+          <h1 className="mt-2 text-2xl font-semibold text-slate-900">
+            Team Portal
+          </h1>
+          <p className="mt-2 text-sm text-slate-500">
+            Sign in to continue to your workspace.
+          </p>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium mb-1">
+            <label
+              htmlFor="email"
+              className="mb-1 block text-sm font-medium text-slate-700"
+            >
               Email
             </label>
             <input
@@ -52,7 +63,7 @@ export default function LoginPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
+              className="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
               placeholder="you@team.com"
             />
           </div>
@@ -60,7 +71,7 @@ export default function LoginPage() {
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium mb-1"
+              className="mb-1 block text-sm font-medium text-slate-700"
             >
               Password
             </label>
@@ -70,7 +81,7 @@ export default function LoginPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
+              className="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
               placeholder="••••••••"
             />
           </div>
@@ -80,11 +91,21 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full rounded-md bg-gray-900 text-white text-sm font-medium py-2 hover:bg-gray-800 disabled:opacity-50"
+            className="w-full rounded-xl bg-slate-900 py-2.5 text-sm font-medium text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {isSubmitting ? "Signing in..." : "Sign in"}
           </button>
         </form>
+
+        <div className="mt-6 text-center text-sm text-slate-600">
+          Don&apos;t have an account?{" "}
+          <Link
+            href="/auth/signup"
+            className="font-medium text-blue-600 hover:underline"
+          >
+            Create one
+          </Link>
+        </div>
       </div>
     </div>
   );

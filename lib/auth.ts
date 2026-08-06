@@ -72,6 +72,7 @@ export async function createUser(
   email: string,
   password: string,
   name: string,
+  role: string = "employee",
 ) {
   const hashedPassword = await hash(password, 10);
 
@@ -80,7 +81,7 @@ export async function createUser(
       email,
       password: hashedPassword,
       name,
-      role: "employee",
+      role: role === "admin" ? "admin" : "employee",
     },
   });
 }

@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -10,6 +10,7 @@ export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [role, setRole] = useState("employee");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -33,7 +34,7 @@ export default function SignupPage() {
       const response = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name, email, password, role }),
       });
 
       if (!response.ok) {
@@ -43,7 +44,7 @@ export default function SignupPage() {
       }
 
       router.push("/auth/login");
-    } catch (err) {
+    } catch {
       setError("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
@@ -51,15 +52,26 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="flex flex-1 items-center justify-center px-4">
-      <div className="w-full max-w-sm">
-        <h1 className="text-2xl font-semibold text-center mb-1">Team Portal</h1>
-        <p className="text-sm text-gray-500 text-center mb-8">
-          Sign in to continue
-        </p>
+    <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-10">
+      <div className="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+        <div className="mb-8 text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
+            Create account
+          </p>
+          <h1 className="mt-2 text-2xl font-semibold text-slate-900">
+            Join Team Portal
+          </h1>
+          <p className="mt-2 text-sm text-slate-500">
+            Set up your account and choose your team role.
+          </p>
+        </div>
+
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <label htmlFor="name" className="text-sm font-medium">
+          <div>
+            <label
+              htmlFor="name"
+              className="mb-1 block text-sm font-medium text-slate-700"
+            >
               Full Name
             </label>
             <input
@@ -68,11 +80,16 @@ export default function SignupPage() {
               placeholder="John Doe"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              className="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
               required
             />
           </div>
-          <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-medium">
+
+          <div>
+            <label
+              htmlFor="email"
+              className="mb-1 block text-sm font-medium text-slate-700"
+            >
               Email
             </label>
             <input
@@ -81,11 +98,34 @@ export default function SignupPage() {
               placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
               required
             />
           </div>
-          <div className="space-y-2">
-            <label htmlFor="password" className="text-sm font-medium">
+
+          <div>
+            <label
+              htmlFor="role"
+              className="mb-1 block text-sm font-medium text-slate-700"
+            >
+              Role
+            </label>
+            <select
+              id="role"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              className="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+            >
+              <option value="employee">Employee</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+
+          <div>
+            <label
+              htmlFor="password"
+              className="mb-1 block text-sm font-medium text-slate-700"
+            >
               Password
             </label>
             <input
@@ -94,11 +134,16 @@ export default function SignupPage() {
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
               required
             />
           </div>
-          <div className="space-y-2">
-            <label htmlFor="confirmPassword" className="text-sm font-medium">
+
+          <div>
+            <label
+              htmlFor="confirmPassword"
+              className="mb-1 block text-sm font-medium text-slate-700"
+            >
               Confirm Password
             </label>
             <input
@@ -107,21 +152,28 @@ export default function SignupPage() {
               placeholder="••••••••"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              className="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
               required
             />
           </div>
-          {error && <div className="text-sm text-red-500">{error}</div>}
+
+          {error && <div className="text-sm text-red-600">{error}</div>}
+
           <button
             type="submit"
-            className="w-full rounded-md bg-gray-900 text-white text-sm font-medium py-2 hover:bg-gray-800 disabled:opacity-50"
+            className="w-full rounded-xl bg-slate-900 py-2.5 text-sm font-medium text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
             disabled={isLoading}
           >
-            {isLoading ? "Creating account..." : "Sign Up"}
+            {isLoading ? "Creating account..." : "Create account"}
           </button>
         </form>
-        <div className="mt-4 text-center text-sm">
+
+        <div className="mt-6 text-center text-sm text-slate-600">
           Already have an account?{" "}
-          <Link href="/auth/login" className="text-blue-600 hover:underline">
+          <Link
+            href="/auth/login"
+            className="font-medium text-blue-600 hover:underline"
+          >
             Sign in
           </Link>
         </div>

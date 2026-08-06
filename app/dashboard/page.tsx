@@ -1,6 +1,7 @@
 import { AnnouncementForm } from "@/components/AnnouncementForm";
 import { AnnouncementList } from "@/components/AnnouncementList";
 import { authOptions } from "@/lib/auth";
+import { isAdmin } from "@/lib/util";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
@@ -31,17 +32,21 @@ export default async function DashboardPage() {
         </section>
 
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div className="mb-6">
-            <h2 className="text-lg font-semibold text-slate-900">
-              Share an update
-            </h2>
-            <p className="mt-1 text-sm text-slate-500">
-              Post a new announcement for the whole team.
-            </p>
-          </div>
-          <AnnouncementForm />
+          {isAdmin(session?.user?.role) && (
+            <>
+              <div className="mb-6">
+                <h2 className="text-lg font-semibold text-slate-900">
+                  Share an update
+                </h2>
+                <p className="mt-1 text-sm text-slate-500">
+                  Post a new announcement for the whole team.
+                </p>
+              </div>
+              <AnnouncementForm />
+            </>
+          )}
 
-          <div className="mt-8 border-t border-slate-200 pt-6">
+          <div className="mt-2 pt-6">
             <div className="mb-4">
               <h2 className="text-lg font-semibold text-slate-900">
                 Latest announcements
