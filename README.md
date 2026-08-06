@@ -19,6 +19,7 @@ A modern internal communication portal built with Next.js, TypeScript, Prisma, a
 - NextAuth
 - Tailwind CSS
 - Lucide React
+- Tanstack Query
 
 ## Project Structure
 
@@ -32,7 +33,7 @@ A modern internal communication portal built with Next.js, TypeScript, Prisma, a
 
 - Node.js 20+
 - npm or pnpm
-- A local PostgreSQL or compatible database
+- A local MySQL or compatible database
 
 ## Installation
 
@@ -78,4 +79,9 @@ Open http://localhost:3000 to view the app.
 
 ## Notes
 
-This project is designed for internal use and can be extended with additional modules such as notifications, documents, or HR workflows.
+- Project structure and code quality: the project is organized around the App Router in app/, with route-specific pages such as dashboard and auth flows, reusable UI in components/, and shared logic in lib/ for auth, Prisma access, and helper functions.
+- Auth implementation: login and signup are implemented with NextAuth credentials in the auth flow, with protected dashboard pages redirected to the login screen when no valid session exists.
+- Backend/API integration: the application uses Prisma as the persistence layer for users and announcements, while API routes under app/api/ are used for signup and other server-side interactions.
+- Component and state management choices: the UI is built from reusable components like the sidebar, announcement form, announcement list, and team member cards, while client-side state is handled through React state for forms and NextAuth session state for user access.
+- Data fetching and caching: TanStack Query is used to load announcements and refresh team directory data so the UI stays responsive and consistent when fetching member information.
+- Role-based control: access to the team directory and announcement creation is restricted by role, so only admins can view the team portal and add announcements, while regular employees have limited access.
