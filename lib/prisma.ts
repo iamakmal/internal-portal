@@ -14,7 +14,7 @@ function createPrismaClient() {
     database: process.env.DATABASE_NAME,
     connectionLimit: 5,
     ssl:{
-      rejectUnauthorized: true
+      rejectUnauthorized: false
     }
   });
 
