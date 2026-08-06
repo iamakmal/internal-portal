@@ -9,8 +9,8 @@ export type Announcement = {
 
 export type User = {
   id: string;
-  email?: string;
-  name?: string;
+  email?: string | null;
+  name?: string | null;
   role: string;
 };
 

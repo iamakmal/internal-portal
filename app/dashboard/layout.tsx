@@ -16,7 +16,7 @@ export default async function DashboardLayout({
 
   return (
     <div className="min-h-screen bg-background">
-      <SideBar user={session.user} />
+      <SideBar user={session?.user} />
       <main className="flex-1 ml-0 md:ml-30 flex flex-col h-full w-full">
         {children}
       </main>
