@@ -85,3 +85,15 @@ Open http://localhost:3000 to view the app.
 - Component and state management choices: the UI is built from reusable components like the sidebar, announcement form, announcement list, and team member cards, while client-side state is handled through React state for forms and NextAuth session state for user access.
 - Data fetching and caching: TanStack Query is used to load announcements and refresh team directory data so the UI stays responsive and consistent when fetching member information.
 - Role-based control: access to the team directory and announcement creation is restricted by role, so only admins can view the team portal and add announcements, while regular employees have limited access.
+
+## Screenshots
+<img width="1893" height="853" alt="Screenshot (1001)" src="https://github.com/user-attachments/assets/17ae261c-e8ca-4922-88da-08267be04603" />
+<img width="1887" height="851" alt="Screenshot (1002)" src="https://github.com/user-attachments/assets/b7a9d77e-943c-43a1-93d3-2f13cba4e9e1" />
+<img width="1893" height="853" alt="Screenshot (1003)" src="https://github.com/user-attachments/assets/57516d65-72e3-42d5-83c7-686659b23067" />
+<img width="1899" height="871" alt="Screenshot (1004)" src="https://github.com/user-attachments/assets/19b30180-2294-47e1-89f7-6add8b507d5d" />
+<img width="1879" height="873" alt="Screenshot (1005)" src="https://github.com/user-attachments/assets/078fd91e-3f18-4280-ae97-8fcfd0f93df0" />
+
+
+
+
+
