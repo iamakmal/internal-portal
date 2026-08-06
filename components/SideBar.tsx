@@ -1,8 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { Users, Megaphone, LogOut } from "lucide-react";
+import { Users, Megaphone, LogOut, Sparkles } from "lucide-react";
 import { User } from "@/lib/types";
 
 const navItems = [
@@ -26,60 +27,67 @@ export function SideBar({ user }: { user: User }) {
   const visibleItems = navItems.filter((item) => !item.adminOnly || isAdmin);
 
   return (
-    <nav className="fixed left-0 top-0 z-50 hidden h-full w-64 flex-col border-r border-gray-200 bg-white px-2 py-4 md:flex">
-      <div className="px-4 pb-6">
-        <h1 className="text-lg font-semibold text-gray-900">
-          Kinetic Enterprise
-        </h1>
-        <p className="text-sm text-gray-500">Internal Portal</p>
+    <nav className="fixed left-0 top-0 z-50 hidden h-full w-64 flex-col border-r border-slate-200 bg-slate-950 px-3 py-4 text-slate-100 md:flex">
+      <div className="rounded-2xl border border-white/10 bg-white/10 p-4 shadow-sm backdrop-blur">
+        <div className="mb-3 flex items-center gap-2.5">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500/20 text-blue-200">
+            <Sparkles size={18} />
+          </div>
+          <div>
+            <h1 className="text-base font-semibold">Kinetic Enterprise</h1>
+            <p className="text-sm text-slate-300">Internal Portal</p>
+          </div>
+        </div>
+        <div className="rounded-xl border border-white/10 bg-slate-900/70 px-3 py-2 text-sm text-slate-300">
+          Stay aligned with your team
+        </div>
       </div>
 
-      <div className="flex flex-1 flex-col gap-1 overflow-y-auto">
+      <div className="mt-5 flex flex-1 flex-col gap-2 overflow-y-auto">
         {visibleItems.map(({ label, href, icon: Icon }) => {
           const isActive = pathname === href;
           const linkClasses = isActive
-            ? "bg-blue-50 text-blue-700 font-semibold"
-            : "text-gray-600 hover:bg-gray-100";
-          const iconClasses = isActive ? "" : "group-hover:translate-x-0.5";
+            ? "bg-blue-500/15 text-white shadow-sm ring-1 ring-blue-400/20"
+            : "text-slate-300 hover:bg-white/10 hover:text-white";
 
           return (
-            <a
+            <Link
               key={href}
               href={href}
               aria-current={isActive ? "page" : undefined}
-              className={`group flex items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200 active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 ${linkClasses}`}
+              className={`group flex items-center gap-3 rounded-2xl px-3 py-3 transition-all duration-200 active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 ${linkClasses}`}
             >
               <Icon
-                size={20}
+                size={18}
                 strokeWidth={isActive ? 2.4 : 2}
-                className={`shrink-0 transition-transform duration-200 ${iconClasses}`}
+                className={`shrink-0 transition-transform duration-200 ${isActive ? "text-blue-300" : "text-slate-400 group-hover:text-slate-200"}`}
               />
-              <span>{label}</span>
+              <span className="text-sm font-medium">{label}</span>
               {isActive && (
-                <span className="ml-auto h-1.5 w-1.5 rounded-full bg-blue-600" />
+                <span className="ml-auto h-2 w-2 rounded-full bg-blue-400" />
               )}
-            </a>
+            </Link>
           );
         })}
       </div>
 
-      <div className="mt-4 border-t border-gray-200 px-2 pt-4">
-        <div className="flex items-center gap-3 rounded-xl px-2 py-2 transition-colors duration-200 hover:bg-gray-100">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-semibold text-white">
+      <div className="mt-4 rounded-2xl border border-white/10 bg-white/10 p-3">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-sm font-semibold text-white">
             {user.name?.charAt(0).toUpperCase() ?? "?"}
           </div>
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-medium text-gray-900">
+            <p className="truncate text-sm font-medium text-white">
               {user.name}
             </p>
-            <p className="truncate text-sm capitalize text-gray-500">
+            <p className="truncate text-sm capitalize text-slate-300">
               {user.role}
             </p>
           </div>
           <button
             onClick={() => signOut()}
             aria-label="Sign out"
-            className="rounded-lg p-2 text-gray-500 transition-colors duration-200 hover:bg-gray-200 hover:text-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+            className="rounded-lg p-2 text-slate-300 transition-colors duration-200 hover:bg-white/10 hover:text-red-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
           >
             <LogOut size={18} />
           </button>
