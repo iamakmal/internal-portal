@@ -1,9 +1,9 @@
 import { prisma } from "@/lib/prisma";
-import NextAuth from "next-auth";
+import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { compare, hash } from "bcryptjs";
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
+export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
     Credentials({
@@ -66,7 +66,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {
     signIn: "/auth/login",
   },
-});
+};
 
 export async function createUser(
   email: string,
