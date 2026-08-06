@@ -2,6 +2,10 @@
 
 A modern internal communication portal built with Next.js, TypeScript, Prisma, and NextAuth. It allows team members to sign in, view announcements, and manage team directory access depending on their role.
 
+## Deployment
+
+This project is deployed on Vercel at [https://internal-portal-flame-beta.vercel.app](https://internal-portal-flame-beta.vercel.app) using [Aiven](https://aiven.io) for managed MySQL hosting.
+
 ## Features
 
 - Secure authentication with NextAuth credentials
